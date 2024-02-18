@@ -1,0 +1,4 @@
+kubectl apply 
+-f frontend-ns.yaml
+-f backend-ns.yaml
+-f mongodb-ns.yaml

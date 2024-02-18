@@ -1,0 +1,4 @@
+kubectl apply 
+-f karsajobs-ui-service.yml
+-f karsajobs-ui-deployment.yml
+-n frontend

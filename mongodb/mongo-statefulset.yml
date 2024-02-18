@@ -1,40 +1,48 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql
+  name: mongo-tier
   labels:
-    app: mysql
+    app: microservices
 spec:
   selector:
     matchLabels:
-      app: mysql
-      tier: backend
-  serviceName: mysql
-  replicas: 2
+      tier: mongo
+  serviceName: mongodb
+  replicas: 1
   minReadySeconds: 10
   template:
     metadata:
       labels:
-        app: mysql
-        tier: backend
+        tier: mongo
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - image: mysql:5.6
-        name: mysql
+      - image: mongo
+        name: mongo
         env:
-        - name: MYSQL_ROOT_PASSWORD
+        - name: tidak dipakai
           valueFrom:
             secretKeyRef:
               name: mysql-pass
               key: password
+
+        - name: MONGO_INITDB_ROOT_USERNAME_FILE 
+          value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+        - name: MONGO_INITDB_ROOT_PASSWORD_FILE 
+          value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
+
         ports:
         - containerPort: 3306
-          name: mysql
+          name: mongo
         volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
+        - name: mongo-persistent-storage
+          mountPath: /data/db
+        - name: mongo-config
+          mountPath: /config
+        - name: mongodbsecret
+          mountPath: /etc/mongo-credentials
       volumes:
-      - name: mysql-persistent-storage
+      - name: mongo-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: mongo-pv-claim

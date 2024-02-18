@@ -1,0 +1,4 @@
+kubectl apply 
+-f karsajobs-service.yml
+-f karsajobs-deployment.yml
+-n backend

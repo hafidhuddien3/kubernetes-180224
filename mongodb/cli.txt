@@ -1,0 +1,7 @@
+kubectl apply 
+-f mongo-configmap.yml
+-f mongo-secret.yml
+-f mongo-service.yml
+-f mongo-statefulset.yml
+-f mongo-pv-pvc.yml
+-n mongodb
