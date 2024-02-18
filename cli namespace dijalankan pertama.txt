@@ -1,3 +1,5 @@
+kubectl apply -f namespace
+
 kubectl apply 
 -f frontend-ns.yaml
 -f backend-ns.yaml

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: support-tier
+  labels:
+    app: microservices
+spec:
+  ports:
+  - port: 8080
+  selector:
+    tier: support

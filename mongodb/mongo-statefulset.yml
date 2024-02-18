@@ -19,6 +19,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - image: mongo
+        #imagePullPolicy: IfNotPresent
         name: mongo
         env:
         - name: tidak dipakai
@@ -33,16 +34,27 @@ spec:
           value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
 
         ports:
-        - containerPort: 3306
+        - containerPort: 27017
           name: mongo
         volumeMounts:
         - name: mongo-persistent-storage
           mountPath: /data/db
-        - name: mongo-config
+        - name: config
           mountPath: /config
-        - name: mongodbsecret
+        - name: secret
           mountPath: /etc/mongo-credentials
       volumes:
       - name: mongo-persistent-storage
         persistentVolumeClaim:
           claimName: mongo-pv-claim
+
+      - name: config
+        configMap:
+          name: mongo-config
+          items:
+          - key: mongo.conf
+            path: mongo.conf
+
+      - name: secret
+        secret:
+          name: mongodbsecret

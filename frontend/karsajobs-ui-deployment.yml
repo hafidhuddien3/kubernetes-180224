@@ -19,8 +19,8 @@ spec:
         containers:
         - name: front-end
           image: hafidhuddien3/karsajobs-ui:latest
-          env:
-            - name: API_URL
-              value: http://app-tier:$(APP_TIER_SERVICE_PORT)
+#          env:
+#            - name: API_URL
+#              value: http://app-tier.backend:$(APP_TIER_SERVICE_PORT)
 
 # Container counter menggunakan mekanisme service discovery DNS. Kita mendefinisikan variable bernama API_URL dengan nilai nama Service dan nama Namespace (disertai Port). Sementara itu, container poller memiliki variable bernama API_URL dengan nilai Nama Service dan langsung disertai Port (melalui Service port environment variable). Nama Namespace tidak digunakan agar hanya mencari di namespace yang sama.

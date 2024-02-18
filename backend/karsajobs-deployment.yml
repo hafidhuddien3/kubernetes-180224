@@ -22,7 +22,7 @@ spec:
         ports:
           - containerPort: 8080
         env:
-          - name: REDIS_URL
+          - name: nggakdipake_URL
             # Environment variable service discovery
             # Naming pattern:
             #   IP address: <all_caps_service_name>_SERVICE_HOST
@@ -30,11 +30,22 @@ spec:
             #   Named Port: <all_caps_service_name>_SERVICE_PORT_<all_caps_port_name>
             value: redis://$(DATA_TIER_SERVICE_HOST):$(DATA_TIER_SERVICE_PORT_REDIS)
 
-# ser nam: mongodb
+          - name: APP_PORT
+            value: “8080”
 
-# env
+          - name: MONGO_HOST
+            value: mongodb.mongodb
 
-APP_PORT dengan nilai “8080”.
-MONGO_HOST dengan nilai yang diambil dari MongoDB Service.
-MONGO_USER dengan nilai yang diambil dari MongoDB Secret (MONGO_ROOT_USERNAME).
-MONGO_PASS dengan nilai yang diambil dari MongoDB Secret (MONGO_ROOT_PASSWORD).
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: mongodbsecret
+                key: MONGO_ROOT_USERNAME
+
+          - name: MONGO_PASS
+            valueFrom:
+              secretKeyRef:
+                name: mongodbsecret
+                key: MONGO_ROOT_PASSWORD
+
+# serv nam: mongodb
