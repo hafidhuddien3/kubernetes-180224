@@ -1,6 +1,7 @@
-kubectl apply -f namespace
+minikube start
 
-kubectl apply 
--f frontend-ns.yaml
--f backend-ns.yaml
--f mongodb-ns.yaml
+kubectl apply -f mongodb -f backend -f frontend
+
+192.168.58.2:31245
+
+curl http://192.168.58.2:31245

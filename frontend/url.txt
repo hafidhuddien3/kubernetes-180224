@@ -1,1 +1,0 @@
-http://support-tier.frontend:8080

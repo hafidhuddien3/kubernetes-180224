@@ -1,0 +1,9 @@
+http://support-tier.frontend:8080
+
+minikube ip
+192.168.58.2
+
+kubectl get service
+webserver    NodePort    10.109.31.27   <none>        80:32599/TCP   45s
+
+curl http://192.168.39.189:32599

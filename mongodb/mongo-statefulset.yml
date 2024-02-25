@@ -18,16 +18,10 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - image: mongo
-        #imagePullPolicy: IfNotPresent
+      - image: mongo:latest
+        imagePullPolicy: IfNotPresent
         name: mongo
         env:
-        - name: tidak dipakai
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password
-
         - name: MONGO_INITDB_ROOT_USERNAME_FILE 
           value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
         - name: MONGO_INITDB_ROOT_PASSWORD_FILE 
@@ -41,7 +35,7 @@ spec:
           mountPath: /data/db
         - name: config
           mountPath: /config
-        - name: secret
+        - name: secret-volume
           mountPath: /etc/mongo-credentials
       volumes:
       - name: mongo-persistent-storage
@@ -55,6 +49,6 @@ spec:
           - key: mongo.conf
             path: mongo.conf
 
-      - name: secret
+      - name: secret-volume
         secret:
-          name: mongodbsecret
+          secretName: mongodbsecret

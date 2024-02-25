@@ -19,22 +19,15 @@ spec:
       containers:
       - name: back-end
         image: hafidhuddien3/karsajobs:latest
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080
         env:
-          - name: nggakdipake_URL
-            # Environment variable service discovery
-            # Naming pattern:
-            #   IP address: <all_caps_service_name>_SERVICE_HOST
-            #   Port: <all_caps_service_name>_SERVICE_PORT
-            #   Named Port: <all_caps_service_name>_SERVICE_PORT_<all_caps_port_name>
-            value: redis://$(DATA_TIER_SERVICE_HOST):$(DATA_TIER_SERVICE_PORT_REDIS)
-
           - name: APP_PORT
-            value: “8080”
+            value: '8080'
 
           - name: MONGO_HOST
-            value: mongodb.mongodb
+            value: mongodb
 
           - name: MONGO_USER
             valueFrom:
